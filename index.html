@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ayub Tantao | Content Writer & WordPress Assistant</title>
+  <meta name="description" content="Ayub Tantao - Filipino content writer and WordPress assistant. Blog posts, product descriptions, social media captions, and basic WordPress help.">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#060606;--surface:#0e0e0e;--surface2:#141414;
+      --blue:#4f9cf9;--blue2:#7ab8ff;--bluedim:rgba(79,156,249,0.08);--blueborder:rgba(79,156,249,0.2);
+      --white:#f0f0f0;--mid:#cccccc;--dim:#999999;
+      --border:#181818;--border2:#252525;--green:#3ddc84
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--white);line-height:1.7;overflow-x:hidden}
+
+    /* CURSOR */
+    .cursor{position:fixed;width:10px;height:10px;background:var(--blue);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s}
+    .cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(79,156,249,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .15s}
+    body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:var(--blue2)}
+
+    /* NAV */
+    .nav{height:64px;background:rgba(6,6,6,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;position:sticky;top:0;z-index:100}
+    .nav-logo{font-size:.95rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--white);text-decoration:none}
+    .nav-logo span{color:var(--blue2)}
+    .nav-right{display:flex;align-items:center;gap:2rem}
+    .nav-link{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--dim);text-decoration:none;transition:color .2s}
+    .nav-link:hover{color:var(--white)}
+    .nav-cta{padding:8px 18px;background:var(--blue);color:var(--white);border-radius:2px;text-decoration:none;font-weight:700;font-size:.7rem;text-transform:uppercase;letter-spacing:1px;transition:all .2s}
+    .nav-cta:hover{background:var(--blue2);color:#060606;transform:translateY(-1px)}
+    @media(max-width:640px){.nav{padding:0 1.25rem}.nav-right .nav-link{display:none}.nav-cta{padding:7px 12px;font-size:.65rem}}
+
+    /* HERO */
+    .hero{min-height:90vh;display:flex;align-items:center;padding:5rem 2.5rem;position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;top:-100px;right:-200px;width:700px;height:700px;background:radial-gradient(ellipse,rgba(79,156,249,.06) 0%,transparent 65%);pointer-events:none}
+    .hero-inner{max-width:900px;margin:0 auto;width:100%}
+    .hero-eyebrow{display:flex;align-items:center;gap:10px;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--green);margin-bottom:1.5rem;opacity:0;animation:fadeUp .7s .1s forwards}
+    .hero-eyebrow::before{content:'';width:8px;height:8px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(61,220,132,.4)}50%{box-shadow:0 0 0 8px rgba(61,220,132,0)}}
+    .hero-name{font-size:clamp(3rem,7vw,6rem);font-weight:900;line-height:1;letter-spacing:-3px;margin-bottom:.5rem;opacity:0;animation:fadeUp .8s .2s forwards}
+    .hero-name span{color:var(--blue2)}
+    .hero-role{font-size:clamp(.9rem,2vw,1.1rem);font-weight:600;text-transform:uppercase;letter-spacing:3px;color:var(--dim);margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s .35s forwards}
+    .hero-desc{font-size:1rem;color:var(--mid);line-height:1.8;max-width:560px;margin-bottom:2.5rem;font-weight:300;opacity:0;animation:fadeUp .8s .45s forwards}
+    .hero-desc strong{color:var(--white);font-weight:500}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;opacity:0;animation:fadeUp .8s .55s forwards}
+    .btn-primary{display:inline-block;padding:13px 28px;background:var(--blue);color:var(--white);border-radius:2px;text-decoration:none;font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:1.5px;transition:all .2s;box-shadow:0 0 20px rgba(79,156,249,.2)}
+    .btn-primary:hover{background:var(--blue2);color:#060606;transform:translateY(-2px);box-shadow:0 8px 24px rgba(79,156,249,.3)}
+    .btn-ghost{display:inline-block;padding:13px 28px;border:1px solid var(--border2);color:var(--mid);border-radius:2px;text-decoration:none;font-weight:600;font-size:.78rem;text-transform:uppercase;letter-spacing:1.5px;transition:all .2s}
+    .btn-ghost:hover{border-color:var(--blue2);color:var(--blue2)}
+    .hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:2rem;opacity:0;animation:fadeUp .8s .65s forwards}
+    .htag{font-size:.7rem;font-weight:600;padding:5px 12px;border:1px solid var(--border2);color:var(--dim);border-radius:2px;transition:all .2s}
+    .htag:hover{border-color:var(--blue);color:var(--blue2)}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:640px){.hero{padding:4rem 1.5rem;min-height:auto}.hero-actions{flex-direction:column;align-items:flex-start}.btn-primary,.btn-ghost{width:100%;text-align:center}}
+
+    /* SECTIONS */
+    .section{padding:5rem 2.5rem}
+    .wrap{max-width:900px;margin:0 auto}
+    .sec-kicker{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--blue2);display:flex;align-items:center;gap:10px;margin-bottom:.75rem}
+    .sec-kicker::before{content:'';width:20px;height:1px;background:var(--blue2)}
+    .sec-title{font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:800;letter-spacing:-1px;line-height:1.15;margin-bottom:.75rem}
+    .sec-sub{font-size:.9rem;color:var(--mid);font-weight:300;line-height:1.75;margin-bottom:2.5rem;max-width:500px}
+    .bg-alt{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
+    .reveal.visible{opacity:1;transform:none}
+
+    /* SERVICES */
+    .svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+    @media(max-width:600px){.svc-grid{grid-template-columns:1fr}}
+    .svc{background:var(--surface);padding:2rem;transition:background .2s}
+    .svc:hover{background:var(--surface2)}
+    .svc-icon{font-size:1.5rem;margin-bottom:1rem}
+    .svc-name{font-size:.9rem;font-weight:700;margin-bottom:.5rem}
+    .svc-desc{font-size:.82rem;color:var(--mid);line-height:1.65;font-weight:300;margin-bottom:1rem}
+    .svc-tags{display:flex;flex-wrap:wrap;gap:6px}
+    .svc-tag{font-size:.65rem;font-weight:600;padding:3px 8px;border:1px solid var(--border2);color:var(--dim);border-radius:2px}
+
+    /* PORTFOLIO */
+    .port-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+    @media(max-width:700px){.port-grid{grid-template-columns:1fr}}
+    .port-card{background:var(--surface);padding:2rem;text-decoration:none;color:inherit;transition:background .2s;display:block}
+    .port-card:hover{background:var(--surface2)}
+    .port-num{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--blue2);margin-bottom:.75rem}
+    .port-title{font-size:.92rem;font-weight:700;margin-bottom:.4rem}
+    .port-desc{font-size:.8rem;color:var(--mid);line-height:1.6;font-weight:300;margin-bottom:1rem}
+    .port-link{font-size:.72rem;font-weight:700;color:var(--blue2);text-transform:uppercase;letter-spacing:1px}
+
+    /* ABOUT */
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+    @media(max-width:700px){.about-grid{grid-template-columns:1fr}}
+    .about-text p{font-size:.92rem;color:var(--mid);line-height:1.85;margin-bottom:1.25rem;font-weight:300}
+    .about-text p strong{color:var(--white);font-weight:600}
+    .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+    .astat{background:var(--surface);padding:1.5rem;text-align:center}
+    .astat-n{font-size:1.8rem;font-weight:900;color:var(--blue2);letter-spacing:-1px;line-height:1}
+    .astat-l{font-size:.62rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--dim);margin-top:5px;font-weight:600}
+    .honest-box{background:var(--surface);border:1px solid var(--border2);border-left:3px solid var(--blue);border-radius:0 6px 6px 0;padding:1.5rem;margin-top:1.5rem}
+    .honest-box-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--blue2);margin-bottom:.75rem}
+    .honest-box p{font-size:.85rem;color:var(--mid);line-height:1.75;font-weight:300}
+
+    /* CONTACT */
+    .contact-simple{background:var(--surface);border:1px solid var(--border2);border-radius:6px;padding:3rem;text-align:center}
+    .contact-simple h3{font-size:1.2rem;font-weight:800;letter-spacing:-1px;margin-bottom:.75rem}
+    .contact-simple p{font-size:.9rem;color:var(--mid);margin-bottom:2rem;font-weight:300;line-height:1.75}
+    .contact-email{font-size:1.1rem;font-weight:700;color:var(--blue2);text-decoration:none;display:block;margin-bottom:1.5rem;transition:color .2s}
+    .contact-email:hover{color:var(--white)}
+    .contact-note{font-size:.75rem;color:var(--dim);font-style:italic}
+
+    footer{border-top:1px solid var(--border);padding:1.5rem 2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+    .footer-logo{font-size:.85rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--white)}
+    .footer-logo span{color:var(--blue2)}
+    footer p{font-size:.65rem;color:var(--dim);text-transform:uppercase;letter-spacing:1.5px}
+
+    /* MOBILE — comprehensive */
+    @media(max-width:640px){
+      .section{padding:3.5rem 1.25rem}
+      .wrap{padding:0}
+      .hero{padding:3rem 1.25rem;min-height:auto}
+      .hero-name{letter-spacing:-2px}
+      .hero-actions{flex-direction:column;align-items:stretch}
+      .btn-primary,.btn-ghost{width:100%;text-align:center}
+      .hero-tags{gap:6px}
+      .svc-grid{grid-template-columns:1fr}
+      .port-grid{grid-template-columns:1fr}
+      .about-grid{grid-template-columns:1fr;gap:2rem}
+      .contact-simple{padding:2rem 1.25rem}
+      .contact-email{font-size:.9rem;word-break:break-all}
+      footer{padding:1.25rem;flex-direction:column;text-align:center}
+      .cursor,.cursor-ring{display:none}
+    }
+  
+    .typed-cursor{color:var(--blue2);animation:blink .9s step-start infinite;font-weight:300;margin-left:3px;font-size:.85em}
+    @keyframes blink{50%{opacity:0}}
+    /* MARQUEE SKILLS STRIP */
+    .marquee-wrap{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:.6rem 0;background:var(--surface);margin-top:0}
+    .marquee-inner{display:flex;width:max-content;animation:marquee 20s linear infinite}
+    .marquee-inner:hover{animation-play-state:paused}
+    .marquee-item{display:flex;align-items:center;gap:.75rem;padding:0 2rem;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--dim);white-space:nowrap}
+    .marquee-dot{width:4px;height:4px;background:var(--blue);border-radius:50%;flex-shrink:0}
+    @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    /* STAT COUNTER */
+    .stat-counter{font-variant-numeric:tabular-nums}
+    /* SERVICE CARD GLOW ON HOVER */
+    .svc{position:relative;overflow:hidden}
+    .svc::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(79,156,249,.04),transparent);transition:left .4s}
+    .svc:hover::after{left:100%}
+    /* PORT CARD ARROW ANIMATION */
+    .port-link{display:inline-flex;align-items:center;gap:4px;transition:gap .2s}
+    .port-card:hover .port-link{gap:8px}
+    /* CONTACT EMAIL GLOW */
+    .contact-email{position:relative}
+    .contact-email::after{content:'';position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);width:0;height:1px;background:var(--blue2);transition:width .3s}
+    .contact-email:hover::after{width:100%}
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav class="nav">
+    <a href="#" class="nav-logo">Ayub <span>Tantao</span></a>
+    <div class="nav-right">
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#portfolio" class="nav-link">Portfolio</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#contact" class="nav-cta">Hire Me</a>
+    </div>
+  </nav>
+
+  <div class="marquee-wrap">
+    <div class="marquee-inner">
+      <span class="marquee-item"><span class="marquee-dot"></span>Blog Writing</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Product Descriptions</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Social Media Captions</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>WordPress Basics</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Elementor</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Content Publishing</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Fast Turnaround</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Remote Ready</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Blog Writing</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Product Descriptions</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Social Media Captions</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>WordPress Basics</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Elementor</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Content Publishing</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Fast Turnaround</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Remote Ready</span>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Available for work</div>
+      <h1 class="hero-name">Ayub<br><span>Tantao</span></h1>
+      <p class="hero-role"><span id="typed-role">Content Writer</span><span class="typed-cursor">|</span></p>
+      <p class="hero-desc">I write <strong>blog posts, product descriptions, and social media captions</strong> that are clear, readable, and built to do a job. I'm also learning WordPress and Elementor — and already helping with basic page builds and content publishing.</p>
+      <div class="hero-actions">
+        <a href="#portfolio" class="btn-primary">See My Work &rarr;</a>
+        <a href="#contact" class="btn-ghost">Get in Touch</a>
+      </div>
+      <div class="hero-tags">
+        <span class="htag">Blog Writing</span>
+        <span class="htag">Product Descriptions</span>
+        <span class="htag">Social Media Captions</span>
+        <span class="htag">WordPress</span>
+        <span class="htag">Elementor Basics</span>
+        <span class="htag">Content Publishing</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-alt" id="services">
+    <div class="wrap">
+      <div class="sec-kicker reveal">What I Do</div>
+      <h2 class="sec-title reveal">Services</h2>
+      <p class="sec-sub reveal">Starting out, but serious about delivering clean, useful work. Here's what I can help with right now.</p>
+      <div class="svc-grid reveal">
+        <div class="svc">
+          <div class="svc-icon">&#9997;</div>
+          <div class="svc-name">Blog Posts &amp; Articles</div>
+          <div class="svc-desc">Well-researched, readable blog posts on general topics. I write in a clear, natural style — no fluff, no keyword stuffing. Good for small businesses that need regular content without the agency price tag.</div>
+          <div class="svc-tags"><span class="svc-tag">500-1500 words</span><span class="svc-tag">Research included</span><span class="svc-tag">SEO-aware</span></div>
+        </div>
+        <div class="svc">
+          <div class="svc-icon">&#128722;</div>
+          <div class="svc-name">Product Descriptions</div>
+          <div class="svc-desc">Short, punchy product copy that highlights the features that actually matter to buyers. Clean formatting, consistent tone, ready to paste into your store.</div>
+          <div class="svc-tags"><span class="svc-tag">eCommerce</span><span class="svc-tag">Shopify</span><span class="svc-tag">WooCommerce</span></div>
+        </div>
+        <div class="svc">
+          <div class="svc-icon">&#128241;</div>
+          <div class="svc-name">Social Media Captions</div>
+          <div class="svc-desc">Captions for Facebook, Instagram, and LinkedIn that sound human — not like they were written by a robot. Short-form content that fits the platform and the brand voice.</div>
+          <div class="svc-tags"><span class="svc-tag">Facebook</span><span class="svc-tag">Instagram</span><span class="svc-tag">LinkedIn</span></div>
+        </div>
+        <div class="svc">
+          <div class="svc-icon">&#128187;</div>
+          <div class="svc-name">WordPress Assistance</div>
+          <div class="svc-desc">Basic WordPress help — content publishing, page formatting, image uploads, basic Elementor layout. I'm still learning but I can handle the fundamentals reliably and will be upfront about what's beyond my current level.</div>
+          <div class="svc-tags"><span class="svc-tag">WordPress</span><span class="svc-tag">Elementor</span><span class="svc-tag">Content Publishing</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="portfolio">
+    <div class="wrap">
+      <div class="sec-kicker reveal">Work Samples</div>
+      <h2 class="sec-title reveal">Portfolio</h2>
+      <p class="sec-sub reveal">Sample pieces showing what my writing looks like across different formats. Click to read the full piece.</p>
+      <div class="port-grid reveal">
+        <a href="portfolio/blog-sample.html" class="port-card">
+          <div class="port-num">01 &mdash; Blog Post</div>
+          <div class="port-title">5 Simple Habits That Actually Improve Your Focus</div>
+          <div class="port-desc">A practical, research-backed blog post written for a general wellness audience. Clear structure, conversational tone, no filler.</div>
+          <div class="port-link">Read Sample &rarr;</div>
+        </a>
+        <a href="portfolio/product-descriptions.html" class="port-card">
+          <div class="port-num">02 &mdash; Product Descriptions</div>
+          <div class="port-title">eCommerce Product Copy — 3 Samples</div>
+          <div class="port-desc">Three product descriptions for different categories: a tech gadget, a skincare item, and a home goods product. Different tones for different buyers.</div>
+          <div class="port-link">Read Samples &rarr;</div>
+        </a>
+        <a href="portfolio/social-captions.html" class="port-card">
+          <div class="port-num">03 &mdash; Social Media</div>
+          <div class="port-title">Caption Pack — Facebook &amp; Instagram</div>
+          <div class="port-desc">A set of 6 captions across different tones — promotional, educational, and engagement-focused. Ready-to-post format.</div>
+          <div class="port-link">Read Samples &rarr;</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-alt" id="about">
+    <div class="wrap">
+      <div class="sec-kicker reveal">About</div>
+      <h2 class="sec-title reveal">Who I Am</h2>
+      <div class="about-grid reveal">
+        <div class="about-text">
+          <p>I'm <strong>Ayub Tantao</strong>, a Filipino student working to build a career in online freelancing. I'm financing my own studies — so this isn't a side hobby. I'm serious about delivering work that's actually useful to the people who hire me.</p>
+          <p>I started with writing because it's something I can do well right now, and I'm actively learning WordPress and Elementor on the side. My goal is to grow into a full web content and WordPress role over the next year.</p>
+          <p>I'm not going to oversell what I can do. I'm a beginner — but I'm a reliable, fast-learning beginner who will communicate clearly and meet deadlines.</p>
+          <div class="honest-box">
+            <div class="honest-box-label">Honest note</div>
+            <p>I don't have years of client experience yet. What I do have is a genuine work ethic and a fast learning curve. I'm building this for real — not just filling time.</p>
+          </div>
+        </div>
+        <div>
+          <div class="about-stats">
+            <div class="astat"><div class="astat-n">3</div><div class="astat-l">Sample pieces</div></div>
+            <div class="astat"><div class="astat-n">4</div><div class="astat-l">Services offered</div></div>
+            <div class="astat"><div class="astat-n">PH</div><div class="astat-l">Based in</div></div>
+            <div class="astat"><div class="astat-n">EN</div><div class="astat-l">Language</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="wrap">
+      <div class="sec-kicker reveal">Contact</div>
+      <h2 class="sec-title reveal">Let's Work Together</h2>
+      <div class="contact-simple reveal">
+        <h3>Send me a message</h3>
+        <p>I'm available for writing projects, content support, and basic WordPress help. If you have something in mind, just reach out directly — I reply fast.</p>
+        <a href="mailto:contact@ayubtantao.online" class="contact-email">contact@ayubtantao.online</a>
+        <p class="contact-note">Filipino-based · Available for remote work · Fast turnaround</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">Ayub <span>Tantao</span></div>
+    <p>&copy; 2026 &mdash; ayubtantao.online</p>
+  </footer>
+
+  <script>
+    // CURSOR
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      ring.style.left = e.clientX + 'px';
+      ring.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('a,button').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
+
+    // REVEAL ON SCROLL
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // SMOOTH SCROLL
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if(t){ e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+
+    // TYPING EFFECT on role
+    const words = ['Content Writer', 'Blog Post Writer', 'Product Copywriter', 'Social Media Writer', 'WordPress Assistant'];
+    let wi = 0, ci = 0, deleting = false, pausing = false;
+    const tw = document.getElementById('typed-role');
+    if(tw) {
+      function typeLoop() {
+        if(pausing) return;
+        const word = words[wi];
+        if(!deleting) {
+          ci++;
+          tw.textContent = word.substring(0, ci);
+          if(ci === word.length) {
+            pausing = true;
+            setTimeout(() => { pausing = false; deleting = true; typeLoop(); }, 2200);
+            return;
+          }
+        } else {
+          ci--;
+          tw.textContent = word.substring(0, ci);
+          if(ci === 0) { deleting = false; wi = (wi + 1) % words.length; }
+        }
+        setTimeout(typeLoop, deleting ? 40 : 85);
+      }
+      setTimeout(typeLoop, 1200);
+    }
+
+    // STAT COUNTER on scroll into view
+    function countUp(el, target, duration) {
+      const isNum = !isNaN(target);
+      if(!isNum) return;
+      const start = performance.now();
+      (function step(now) {
+        const p = Math.min((now - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(ease * target);
+        if(p < 1) requestAnimationFrame(step);
+        else el.textContent = target;
+      })(performance.now());
+    }
+    const statObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if(e.isIntersecting) {
+          const n = e.target.querySelector('.astat-n');
+          if(n && !n.dataset.counted) {
+            n.dataset.counted = '1';
+            const val = parseInt(n.textContent);
+            if(!isNaN(val)) countUp(n, val, 1200);
+          }
+        }
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.astat').forEach(el => statObs.observe(el));
+
+    // SERVICE CARD subtle entrance stagger
+    document.querySelectorAll('.svc').forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(16px)';
+      el.style.transition = 'opacity .5s ' + (i * 0.08) + 's, transform .5s ' + (i * 0.08) + 's, background .2s';
+      const svcObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if(e.isIntersecting) {
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+            svcObs.unobserve(el);
+          }
+        });
+      }, { threshold: 0.1 });
+      svcObs.observe(el);
+    });
+  </script>
+</body>
+</html>
